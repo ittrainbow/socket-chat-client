@@ -67,13 +67,15 @@ export const Room = () => {
     }
 
     window.addEventListener('beforeunload', onUnload)
-    window.addEventListener('keypress', onSubmit)
+    id && window.addEventListener('keypress', onSubmit)
 
     return () => {
       window.removeEventListener('beforeunload', onUnload)
       window.removeEventListener('keypress', onSubmit)
     } // eslint-disable-next-line
   }, [name, id])
+
+  useEffect(() => {}, [id])
 
   const leaveRoomHandler = () => {
     socket.emit('leaveroom', { room, name })
