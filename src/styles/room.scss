@@ -34,15 +34,15 @@
     padding: 5px;
     border: 1px solid grey;
     border-radius: 5px;
+    overflow: auto;
   }
 
   &__users {
-    min-width: 170px;
+    min-width: 160px;
   }
 
   &__chat {
     width: 100%;
-    overflow: auto;
   }
 }
 

@@ -1,15 +1,25 @@
 .users {
   &__header {
     font-size: 18px;
-    color: #eee;
+    color: #ccc;
     padding: 5px 3px;
   }
 
-  &__list-element {
-    color: #eee;
-    font-size: 16px;
+  &__me,
+  &__user {
     width: fit-content;
     padding: 5px 3px;
-    font-weight: 600;
+  }
+
+  &__me {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  &__user {
+    font-size: 15px;
+    color: #ccc;
+    font-weight: 400;
   }
 }

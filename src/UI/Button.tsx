@@ -9,15 +9,17 @@ interface IButtonProps {
   disabled?: boolean
   width?: number | undefined
   height?: number | undefined
+  type?: 'submit'
 }
 
-export const Button = ({ onClick, disabled, label, width, height }: IButtonProps) => {
+export const Button = ({ onClick, disabled, label, width, height, type }: IButtonProps) => {
   return (
     <ThemeProvider theme={darkTheme}>
       <MUIButton
         variant="outlined"
         onClick={onClick}
         disabled={disabled}
+        type={type}
         sx={{
           width: width || '100%',
           height: height || 42,

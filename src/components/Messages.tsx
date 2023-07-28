@@ -1,4 +1,4 @@
-import { memo} from 'react'
+import { memo } from 'react'
 
 import { MessageType, getTime } from '../heplers'
 
@@ -20,14 +20,17 @@ const Messages = (props: MessagePropsType) => {
         } = msg
         const time = getTime(timestamp)
         const myMessage = name === props.name
-        const classes = `messages__${myMessage ? 'my-message' : 'other-message'}`
+        const floatStyle = `message__float-${myMessage ? 'right' : 'left'}`
+
         return (
-          <div key={index} className="messages__message">
-            <div className="messages__message-header">
-              <div className="messages__message-header__inner">{name}</div> {time}
-            </div>
-            <div className={classes}>
-              {message}
+          <div key={index} className="message__container">
+            <div className="message">
+              <div className={floatStyle}>
+                <div className="message__header">
+                  <div className="message__header__inner">{name}</div> {time}
+                </div>
+                <div className="message__text">{message}</div>
+              </div>
             </div>
           </div>
         )

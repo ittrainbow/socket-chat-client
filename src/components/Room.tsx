@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react'
 import { BsEmojiSmile } from 'react-icons/bs'
@@ -6,14 +6,16 @@ import { BsEmojiSmile } from 'react-icons/bs'
 import { Users } from '.'
 import { Button, Input } from '../UI'
 import { MessageType } from '../heplers/types'
-import { Context } from '../context/Context'
+import { useAppContext } from '../context/Context'
 import Messages from './Messages'
-import { socket } from '../socket/socket'
+import * as io from 'socket.io-client'
+
+const socket = io.connect('https://ittr-socket-chatrooms.onrender.com')
 
 export const Room = () => {
   const { id } = useParams()
   const inputRef = useRef<HTMLInputElement>()
-  const context = useContext(Context)
+  const context = useAppContext()
   const navigate = useNavigate()
   const { name, setName } = context
   const [room, setRoom] = useState<string>('')
@@ -22,6 +24,7 @@ export const Room = () => {
   const [state, setState] = useState<MessageType[]>([])
   const [showEmojies, setShowEmojies] = useState<boolean>(false)
   const [tempMessage, setTempMessage] = useState<string>('')
+  const tempMessageRef = useRef(tempMessage)
 
   useEffect(() => {
     const name = localStorage.getItem('socketRoomUsername')
@@ -54,10 +57,22 @@ export const Room = () => {
   }, [room, name])
 
   useEffect(() => {
-    window.addEventListener('beforeunload', (e) => {
+    const onUnload = (e: any) => {
       e.preventDefault()
       name && socket.emit('leaveroom', { room: id, name })
-    })
+    }
+
+    const onSubmit = (e: KeyboardEvent) => {
+      e.code === 'Enter' && sendMessageHandler(tempMessageRef.current)
+    }
+
+    window.addEventListener('beforeunload', onUnload)
+    window.addEventListener('keypress', onSubmit)
+
+    return () => {
+      window.removeEventListener('beforeunload', onUnload)
+      window.removeEventListener('keypress', onSubmit)
+    } // eslint-disable-next-line
   }, [name, id])
 
   const leaveRoomHandler = () => {
@@ -68,11 +83,12 @@ export const Room = () => {
   const tempMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
     setTempMessage(value)
+    tempMessageRef.current = value
   }
 
-  const sendMessageHandler = () => {
-    if (tempMessage !== '') {
-      const data = { room, name, message: tempMessage }
+  const sendMessageHandler = (message: string) => {
+    if (message !== '') {
+      const data = { room, name, message }
       socket.emit('sendmessage', data)
       setTempMessage('')
 
@@ -83,7 +99,7 @@ export const Room = () => {
             top: chatDiv.scrollHeight + 41,
             behavior: 'smooth'
           })
-      }, 20)
+      }, 200)
     }
   }
 
@@ -97,7 +113,7 @@ export const Room = () => {
     <>
       <div className="room-top">
         <div className="room-top__header">Room: {room}</div>
-        <Button label="Leave" onClick={leaveRoomHandler} width={80} />
+        <Button label="Leave" onClick={leaveRoomHandler} width={120} />
       </div>
       <div className="room-body">
         <div className="room-body__users">
@@ -120,7 +136,14 @@ export const Room = () => {
             </div>
           )}
         </div>
-        <Button label="Send" onClick={sendMessageHandler} width={140} />
+        <div>
+          <Button
+            label="Send"
+            onClick={() => sendMessageHandler(tempMessage)}
+            width={120}
+            disabled={tempMessage === ''}
+          />
+        </div>
       </div>
     </>
   )

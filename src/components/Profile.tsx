@@ -1,11 +1,11 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { Button, Input } from '../UI'
-import { Context } from '../context/Context'
+import { useAppContext } from '../context/Context'
 
 export const Profile = () => {
-  const { name, setName } = useContext(Context)
+  const { name, setName } = useAppContext()
   const navigate = useNavigate()
   const [tempName, setTempName] = useState<string>('')
 
