@@ -1,0 +1,79 @@
+@import './vars.scss';
+
+.room-top {
+  padding: 5px 15px 0;
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+  box-sizing: border-box;
+  align-items: center;
+
+  &__header {
+    flex-grow: 1;
+    font-size: 24px;
+    line-height: 48px;
+    color: #eee;
+    align-items: center;
+  }
+}
+
+.room-body {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  max-height: calc(100% - 50px);
+  box-sizing: border-box;
+  padding: 5px 15px 5px 15px;
+  gap: 5px;
+
+  &__users,
+  &__chat {
+    background-color: $light-blue;
+    max-height: calc(100vh - 130px);
+    padding: 5px;
+    border: 1px solid grey;
+    border-radius: 5px;
+  }
+
+  &__users {
+    min-width: 170px;
+  }
+
+  &__chat {
+    width: 100%;
+    overflow: auto;
+  }
+}
+
+.room-bottom {
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  padding: 3px 15px 10px 15px;
+}
+
+.room-emojies {
+  &__container {
+    display: flex;
+    justify-content: center;
+    width: 40px;
+    cursor: pointer;
+    position: relative;
+    color: #eee;
+  }
+
+  &__icon {
+    display: flex;
+  }
+
+  &__emojies {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-100%);
+    bottom: 100%;
+    scale: 0.75;
+  }
+}
