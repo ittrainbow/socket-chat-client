@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext, useRef } from 'react'
-import * as io from 'socket.io-client'
 import { useParams, useNavigate } from 'react-router-dom'
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react'
 import { BsEmojiSmile } from 'react-icons/bs'
@@ -9,8 +8,7 @@ import { Button, Input } from '../UI'
 import { MessageType } from '../heplers/types'
 import { Context } from '../context/Context'
 import Messages from './Messages'
-
-const socket = io.connect('http://localhost:5001')
+import { socket } from '../socket/socket'
 
 export const Room = () => {
   const { id } = useParams()
