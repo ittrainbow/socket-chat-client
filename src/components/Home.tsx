@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import * as io from 'socket.io-client'
 
 import { Button, Input } from '../UI'
-
-const socket = io.connect('http://localhost:5001')
+import { socket } from '../socket/socket'
 
 export const Home = () => {
   const navigate = useNavigate()
