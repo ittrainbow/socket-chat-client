@@ -67,13 +67,13 @@ export const Room = () => {
     }
 
     window.addEventListener('beforeunload', onUnload)
-    id && window.addEventListener('keypress', onSubmit)
+    room && window.addEventListener('keypress', onSubmit)
 
     return () => {
       window.removeEventListener('beforeunload', onUnload)
       window.removeEventListener('keypress', onSubmit)
     } // eslint-disable-next-line
-  }, [name, id])
+  }, [name, id, room])
 
   useEffect(() => {}, [id])
 
