@@ -8,9 +8,7 @@ import { Button, Input } from '../UI'
 import { MessageType } from '../heplers/types'
 import { useAppContext } from '../context/Context'
 import Messages from './Messages'
-import * as io from 'socket.io-client'
-
-const socket = io.connect('https://ittr-socket-chatrooms.onrender.com')
+import { socket } from '../socket/socket'
 
 export const Room = () => {
   const { id } = useParams()

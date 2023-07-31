@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { Button, Input } from '../UI'
-import * as io from 'socket.io-client'
-
-const socket = io.connect('https://ittr-socket-chatrooms.onrender.com')
+import { socket } from '../socket/socket'
 
 export const Home = () => {
   const navigate = useNavigate()
