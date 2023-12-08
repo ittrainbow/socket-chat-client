@@ -1,5 +1,6 @@
 Simple Chatrooms via socket.io
 
-server: https://github.com/ittrainbow/socket-chat-server
+App: https://beautiful-cassata-ceff31.netlify.app/
 
-applink: https://beautiful-cassata-ceff31.netlify.app/
+Server: https://github.com/ittrainbow/socket-chat-server
+
