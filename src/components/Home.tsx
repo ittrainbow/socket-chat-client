@@ -18,7 +18,7 @@ export const Home = () => {
 
   useEffect(() => {
     socket.emit('inithome')
-    socket.on('getrooms', (rooms) => setRooms(rooms))
+    socket.on('getrooms', (rooms: string[]) => setRooms(rooms))
   }, [])
 
   useEffect(() => {

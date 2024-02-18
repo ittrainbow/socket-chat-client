@@ -28,11 +28,11 @@ export const Room = () => {
     const name = localStorage.getItem('socketRoomUsername')
     name ? setName(name) : navigate('/')
 
-    socket.on('message', (data) => {
+    socket.on('message', (data: MessageType) => {
       setState((state) => [...state, data])
     })
 
-    socket.on('usersupdated', (data) => {
+    socket.on('usersupdated', (data: { getUsers: string[]; numberOfUsers: number }) => {
       const { getUsers, numberOfUsers } = data
       setUsers(getUsers)
       setNumberOfUsers(numberOfUsers)
@@ -126,10 +126,7 @@ export const Room = () => {
       <div className="room-bottom">
         <Input type="text" inputRef={inputRef} onChange={tempMessageHandler} value={tempMessage} />
         <div className="room-emojies__container">
-          <BsEmojiSmile
-            className="room-emojies__emoji"
-            onClick={() => setShowEmojies(!showEmojies)}
-          />
+          <BsEmojiSmile className="room-emojies__emoji" onClick={() => setShowEmojies(!showEmojies)} />
           {showEmojies && (
             <div className="room-emojies__emojies">
               <EmojiPicker onEmojiClick={onEmojiClickHandler} />
